@@ -1,0 +1,31 @@
+gitignore_content = """
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+
+# Django database
+*.sqlite3
+db.sqlite3
+
+# Static and media files
+/static/
+/media/
+
+# Ignore logs
+*.log
+
+# Ignore secrets and environment files
+.env
+config/settings_local.py
+
+# VSCode and PyCharm settings (nếu dùng)
+.vscode/
+.idea/
+"""
+
