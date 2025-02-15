@@ -18,7 +18,6 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-ALLOWED_HOSTS = ['your-app-name.onrender.com']
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
@@ -31,7 +30,7 @@ SECRET_KEY = "django-insecure-4lm)1go3e$g-1fw78=xqor4erl^=(i8t3%mqr-*ka@-83)=fp_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['pythonapi-3hjh.onrender.com']
 
 
 # Application definition
