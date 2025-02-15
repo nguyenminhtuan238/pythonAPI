@@ -33,6 +33,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+WSGI_APPLICATION = "server.wsgi.application"
 
 # Application definition
 
