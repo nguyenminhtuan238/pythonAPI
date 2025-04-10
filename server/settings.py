@@ -30,7 +30,7 @@ SECRET_KEY = "django-insecure-4lm)1go3e$g-1fw78=xqor4erl^=(i8t3%mqr-*ka@-83)=fp_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['pythonapi-3hjh.onrender.com']
+ALLOWED_HOSTS = ['pythonapi-3hjh.onrender.com','127.0.0.1']
 
 
 # Application definition
@@ -63,19 +63,24 @@ SIMPLE_JWT = {
 }
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-     'corsheaders.middleware.CorsMiddleware',
-     'whitenoise.middleware.WhiteNoiseMiddleware'
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 
 ]
+CORS_ALLOW_CREDENTIALS = True  # Cho phép gửi cookie
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000","http://127.0.0.1:3000"]
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',  
+    "http://localhost:3000",
+   "http://127.0.0.1:3000" # React frontend
 ]
+SESSION_COOKIE_SAMESITE = None  # Nếu dùng session cookie
+
 ROOT_URLCONF = "server.urls"
 
 TEMPLATES = [

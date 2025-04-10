@@ -7,5 +7,6 @@ urlpatterns=[
     path('note/create',note_view.create_note,name='create_note'),
     path('note/update/<int:pk>',note_view.update_note,name='update_note'),
     path('note/delete/<int:pk>',note_view.delete_note,name='delete_note'),
+    # path('note/restore/<int:pk>',note_view.delete_restore,name='delete_restore'),
 
 ]
