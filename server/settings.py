@@ -74,11 +74,11 @@ MIDDLEWARE = [
 
 ]
 CORS_ALLOW_CREDENTIALS = True  # Cho phép gửi cookie
-CSRF_TRUSTED_ORIGINS = ["http://localhost:3000","http://127.0.0.1:3000"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000","http://127.0.0.1:3000","https://nextjs-boilerplate-nqzttonbq-nguyenminhtuan238s-projects.vercel.app/"]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
    "http://127.0.0.1:3000",
-   'nextjs-boilerplate-nqzttonbq-nguyenminhtuan238s-projects.vercel.app'# React frontend
+   "https://nextjs-boilerplate-nqzttonbq-nguyenminhtuan238s-projects.vercel.app"# React frontend
 ]
 SESSION_COOKIE_SAMESITE = None  # Nếu dùng session cookie
 
