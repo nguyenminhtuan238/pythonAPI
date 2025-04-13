@@ -30,7 +30,7 @@ SECRET_KEY = "django-insecure-4lm)1go3e$g-1fw78=xqor4erl^=(i8t3%mqr-*ka@-83)=fp_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['pythonapi-3hjh.onrender.com','127.0.0.1','nextjs-boilerplate-nqzttonbq-nguyenminhtuan238s-projects.vercel.app']
+ALLOWED_HOSTS = ['pythonapi-3hjh.onrender.com','127.0.0.1','nextjs-boilerplate-nqzttonbq-nguyenminhtuan238s-projects.vercel.app','nextjs-boilerplate-two-beta-83.vercel.app']
 
 
 # Application definition
@@ -78,7 +78,8 @@ CSRF_TRUSTED_ORIGINS = ["http://localhost:3000","http://127.0.0.1:3000","https:/
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
    "http://127.0.0.1:3000",
-   "https://nextjs-boilerplate-nqzttonbq-nguyenminhtuan238s-projects.vercel.app"# React frontend
+   "https://nextjs-boilerplate-nqzttonbq-nguyenminhtuan238s-projects.vercel.app",
+   'https://nextjs-boilerplate-two-beta-83.vercel.app'# React frontend
 ]
 SESSION_COOKIE_SAMESITE = None  # Nếu dùng session cookie
 
