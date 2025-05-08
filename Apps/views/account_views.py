@@ -100,7 +100,7 @@ class Account_view:
             reset_link = f"{config('LINK_RESET_PASSWORD')}/reset/{uid}/{token}/"
             send_mail(
                 f"{config('EMAIL_TITLE')}",
-                f"Click here to reset: {reset_link}",
+                f"{config('EMAIL_MESSAGE')} {reset_link}",
                 "noreply@example.com",
                 [email],
             )
