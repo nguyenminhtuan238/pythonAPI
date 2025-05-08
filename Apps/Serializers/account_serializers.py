@@ -2,21 +2,26 @@ from rest_framework import serializers
 import re
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
+from rest_framework.validators import UniqueValidator
 
 
 class AccountSerializer(serializers.ModelSerializer):
     username = serializers.CharField(
-        required=True,
-        error_messages={"blank": "Username cannot be empty."}
+        required=True, error_messages={"blank": "Username cannot be empty."}
     )  # Định nghĩa lại username để bỏ UniqueValidator mặc định
     email = serializers.CharField(
         required=True,
-        error_messages={"blank": "Email cannot be empty."}
+        error_messages={"blank": "Email cannot be empty."},
+        validators=[
+            UniqueValidator(
+                queryset=User.objects.all(), message="This email is already taken."
+            )
+        ],
     )
-    password=serializers.CharField(
-        required= True,
-        error_messages= {"blank": "Password cannot be empty."}
+    password = serializers.CharField(
+        required=True, error_messages={"blank": "Password cannot be empty."}
     )
+
     class Meta:
         model = User
         fields = ["id", "username", "password", "email"]
@@ -60,3 +65,4 @@ class AccountSerializer(serializers.ModelSerializer):
         validated_data["password"] = make_password(password)
         account = User.objects.create(**validated_data)
         return account
+

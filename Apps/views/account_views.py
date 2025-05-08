@@ -7,6 +7,11 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from ..Serializers.account_serializers import AccountSerializer
 from django.contrib.auth.models import User
 from datetime import timedelta, datetime
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.utils.encoding import force_bytes, force_str
+from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
+from django.core.mail import send_mail
+from decouple import config
 
 
 class Account_view:
@@ -28,11 +33,10 @@ class Account_view:
 
     @api_view(["POST"])
     def create_Account(request):
-        # username = request.data.get("username")
         serializer = AccountSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response( {"message": "Create Account success"}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @api_view(["POST"])
@@ -86,6 +90,43 @@ class Account_view:
         )
         return res
 
+    @api_view(["Post"])
+    def ForgotPassword(request):
+        email = request.data.get("email")
+        try:
+            user = User.objects.get(email=email)
+            token = PasswordResetTokenGenerator().make_token(user)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            reset_link = f"{config('LINK_RESET_PASSWORD')}/reset/{uid}/{token}/"
+            send_mail(
+                f"{config('EMAIL_TITLE')}",
+                f"Click here to reset: {reset_link}",
+                "noreply@example.com",
+                [email],
+            )
+            return Response({"message": "Check your email."})
+        except User.DoesNotExist:
+            return Response({"error": "User not found."}, status=400)
+    @api_view(["PATCH"])
+    def ResetPassword(request):
+        uidb64 = request.data.get("uid")
+        token = request.data.get("token")
+        new_password = request.data.get("password")
+
+        try:
+            uid = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
+            serializer = AccountSerializer(user,data={"password": new_password},partial=True)
+            if not PasswordResetTokenGenerator().check_token(user, token):
+                return Response({"error": ["Invalid or expired token."]}, status=400)
+            if serializer.is_valid():
+                serializer.save()
+                return Response({"message": "Password reset successful."})  
+            else:
+                return Response(serializer.errors, status=400)
+
+        except Exception as e:
+            return Response({"error": str(e)}, status=400)
     @api_view(["GET"])
     def Logout(request):
         res = Response({"message": "Logged out"})
