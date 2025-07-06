@@ -21,16 +21,17 @@ class note_view:
     def get_noteid(request):
         user = request.user
 
-        notes = Note.objects.filter(user_id=user)  # Lọc theo user_id
+        notes = Note.objects.filter(user_id=user.id)  # Lọc theo user_id
         serializer = NoteSerializer(notes, many=True)  # Serialize danh sách Note
         return Response(serializer.data)
 
     @api_view(["POST"])
     @permission_classes([IsAuthenticated])
     def create_note(request):
+        user = request.user
         serializer = NoteSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(user_id=user.id)  # Gán user trực tiếp ở đây
             user = request.user
             notes = Note.objects.filter(user=user.id)  # Lọc theo user_id
             serializerid = NoteSerializer(notes, many=True)  # Serialize danh sách Note
